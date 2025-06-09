@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: movie-score-api
+    env: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: OMDB_API_KEY
+        value: ecbfe2e7
+      - key: TMDB_API_KEY
+        value: c963ccea07e4acd45313f85170f16387

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie Ratings Aggregator</title>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #00ffe7;
+      text-shadow: 0 0 10px #00ffe7;
+    }
+
+    form {
+      margin-bottom: 2rem;
+    }
+
+    input[type="text"] {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      width: 300px;
+      border: 2px solid #00ffe7;
+      border-radius: 8px;
+      background-color: #1f1f1f;
+      color: #fff;
+      outline: none;
+    }
+
+    button {
+      padding: 0.5rem 1.2rem;
+      font-size: 1rem;
+      background-color: #00ffe7;
+      border: none;
+      border-radius: 8px;
+      margin-left: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffe7;
+      color: #000;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #00c2ab;
+      box-shadow: 0 0 20px #00ffe7;
+    }
+
+    #results {
+      margin-top: 2rem;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .glow-box {
+      border: 2px solid #00ffe7;
+      box-shadow: 0 0 15px 4px #00ffe7;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-top: 1.5rem;
+      margin-bottom: 4rem;
+      background-color: #111;
+      text-align: center;
+    }
+
+    .glow-box ul {
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      text-align: left;
+      display: inline-block;
+    }
+
+    img {
+      display: block;
+      margin: 1rem auto;
+      border: 3px solid #00ffe7;
+      border-radius: 10px;
+    }
+
+    a {
+      color: #00ffe7;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 0.3rem 0;
+    }
+
+    .streaming-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .streaming-logos img {
+      height: 40px;
+      border: none;
+    }
+
+    .streaming-label {
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+    }
+
+    .provider {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Movie Score Aggregator</h1>
+
+  <form id="movieForm">
+    <input type="text" id="movieTitle" placeholder="Enter movie title" required />
+    <button type="submit">Get Scores</button>
+  </form>
+
+  <div id="results">
+    <div class="glow-box" id="introBox">
+      <h3>Welcome to Movie Score Aggregator</h3>
+      <p>This website is designed to provide a rapid but extensive review of a film title</p>
+        <p>Enter a movie title above to reveal:</p>
+      <ul>
+        <li>Ratings from multiple film review sites</li>
+        <li>A combined average score</li>
+        <li>Where you can stream the movie</li>
+      </ul>
+      <p>Just type a movie name and click "Get Scores".</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('movieForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const title = document.getElementById('movieTitle').value;
+      const response = await fetch(`/api/movie?title=${encodeURIComponent(title)}`);
+      const data = await response.json();
+
+      const resultsDiv = document.getElementById('results');
+      if (data.error) {
+        resultsDiv.innerHTML = `<div class="glow-box"><p>Error: ${data.error}</p></div>`;
+        return;
+      }
+
+      const { movieInfo, scores, average, streaming } = data;
+
+      let infoHtml = `
+        <h2>${movieInfo.title} (${movieInfo.year})</h2>
+        <img src="${movieInfo.poster}" alt="Poster" style="max-width:200px;">
+        <p><strong>Rated:</strong> ${movieInfo.rated}</p>
+        <p><strong>Released:</strong> ${movieInfo.released}</p>
+        <p><strong>Genre:</strong> ${movieInfo.genre}</p>
+        <p><strong>Director:</strong> ${movieInfo.director}</p>
+        <p><strong>Writer:</strong> ${movieInfo.writer}</p>
+        <p><strong>Actors:</strong> ${movieInfo.actors}</p>
+        <p><strong>Language:</strong> ${movieInfo.language}</p>
+        <p><strong>Country:</strong> ${movieInfo.country}</p>
+        <p><strong>Awards:</strong> ${movieInfo.awards}</p>
+        <p><strong>Production:</strong> ${movieInfo.production}</p>
+        <p><strong>Box Office:</strong> ${movieInfo.boxOffice}</p>
+        <p><strong>DVD Release:</strong> ${movieInfo.dvd}</p>
+        <p><strong>Type:</strong> ${movieInfo.type}</p>
+        <p><strong>Plot:</strong> ${movieInfo.plot}</p>
+        <p><strong>Website:</strong> ${movieInfo.website !== "N/A" ? `<a href="${movieInfo.website}" target="_blank">${movieInfo.website}</a>` : 'N/A'}</p>
+        <p><strong>IMDb Rating:</strong> (${movieInfo.imdbVotes} votes)</p><br>
+      `;
+
+      let scoresHtml = `<div class="glow-box"><h3>Scores:</h3><ul>`;
+      for (const [source, value] of Object.entries(scores)) {
+        scoresHtml += `<li><strong>${source}:</strong> ${value}/100</li>`;
+      }
+      scoresHtml += `</ul><h3>Average Score: ${average}/100</h3></div>`;
+
+      let streamingHtml = '';
+      if (streaming.length > 0) {
+        streamingHtml = `<h3>Where to Watch</h3><div class="streaming-logos">`;
+        streaming.forEach(provider => {
+          streamingHtml += `
+            <div class="provider">
+              <img src="${provider.logo}" alt="${provider.name}" title="${provider.name}">
+              <div class="streaming-label">${provider.name}</div>
+            </div>
+          `;
+        });
+        streamingHtml += `</div>`;
+      }
+
+      resultsDiv.innerHTML = infoHtml + scoresHtml + streamingHtml;
+    });
+  </script>
+</body>
+</html>
