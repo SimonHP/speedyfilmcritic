@@ -120,6 +120,14 @@
       text-align: center;
     }
   </style>
+  <!-- Google tag (gtag.js) for GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3780MNFP09"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3780MNFP09');
+  </script>
 </head>
 <body>
   <h1>Movie Score Aggregator</h1>
@@ -147,6 +155,12 @@
     document.getElementById('movieForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const title = document.getElementById('movieTitle').value;
+      // GA4 Event Tracking
+      gtag('event', 'search', {
+        event_category: 'Movie Lookup',
+        event_label: title,
+        search_term: title
+      });
       const response = await fetch(`/api/movie?title=${encodeURIComponent(title)}`);
       const data = await response.json();
 
