@@ -83,6 +83,8 @@
       box-shadow: 0 0 10px #00ffe7;
       color: #000;
       transition: all 0.3s ease;
+      min-height: 44px;
+      font-size: 1rem;
     }
 
     button:hover {
@@ -159,6 +161,55 @@
     .provider {
       text-align: center;
     }
+    @media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  button {
+    margin-top: 0.5rem;
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .glow-box {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .streaming-logos img {
+    height: 30px;
+  }
+
+  .provider {
+    width: 33%;
+  }
+  img {
+  max-width: 100%;
+  height: auto;
+}
+
+}
+
   </style>
   <!-- Google tag (gtag.js) for GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-3780MNFP09"></script>
