@@ -1,47 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>Movie Score Aggregator | Unified Ratings from TMDb, RT, IMDb, Metacritic</title>
   <meta name="google-site-verification" content="qEqpG-rqDCL1YhVP-_U6NXRW_pOt2cmpAvB_i3B9vHI" />
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Meta Description -->
   <meta name="description" content="Get movie scores from IMDb, Rotten Tomatoes, Metacritic, and TMDb in one place — plus see where to stream them instantly." />
-<!-- Standard favicon -->
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-
-<!-- Apple Touch Icon -->
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
-<!-- Web Manifest for PWA support -->
-<link rel="manifest" href="/site.webmanifest">
-
-<!-- Open Graph (Facebook/LinkedIn) -->
-<meta property="og:title" content="Movie Score Aggregator" />
-<meta property="og:description" content="See all your favorite movie ratings at once—Rotten Tomatoes, TMDb, Metacritic, and more." />
-<meta property="og:image" content="https://speedyfilmcritic.onrender.com/images/share-preview.jpg" /> 
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:url" content="https://speedyfilmcritic.onrender.com/" />
-<meta property="og:type" content="website" />
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Movie Score Aggregator" />
-<meta name="twitter:description" content="Aggregate ratings from Rotten Tomatoes, TMDb, Metacritic, and more. Find where to stream any movie." />
-<meta name="twitter:image" content="https://speedyfilmcritic.onrender.com/images/share-preview.jpg" />
-
-
-
-
-<!-- Favicon -->
-<link rel="icon" href="/favicon.ico" type="image/x-icon" />
-
-
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:title" content="Movie Score Aggregator" />
+  <meta property="og:description" content="See all your favorite movie ratings at once—Rotten Tomatoes, TMDb, Metacritic, and more." />
+  <meta property="og:image" content="https://speedyfilmcritic.onrender.com/images/share-preview.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://speedyfilmcritic.onrender.com/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Movie Score Aggregator" />
+  <meta name="twitter:description" content="Aggregate ratings from Rotten Tomatoes, TMDb, Metacritic, and more. Find where to stream any movie." />
+  <meta name="twitter:image" content="https://speedyfilmcritic.onrender.com/images/share-preview.jpg" />
   <style>
     body {
       background-color: #0f0f0f;
@@ -50,18 +30,18 @@
       text-align: center;
       padding: 2rem;
     }
-
     h1 {
       font-size: 2.5rem;
       color: #00ffe7;
       text-shadow: 0 0 10px #00ffe7;
     }
-
+    h2 {
+      color: #00ffe7;
+    }
     form {
       margin-bottom: 2rem;
     }
-
-    input[type="text"] {
+    input[type="text"], select {
       padding: 0.5rem 1rem;
       font-size: 1rem;
       width: 300px;
@@ -70,36 +50,26 @@
       background-color: #1f1f1f;
       color: #fff;
       outline: none;
+      margin: 0.5rem 0;
     }
-
     button {
       padding: 0.5rem 1.2rem;
       font-size: 1rem;
       background-color: #00ffe7;
       border: none;
       border-radius: 8px;
-      margin-left: 1rem;
       cursor: pointer;
       box-shadow: 0 0 10px #00ffe7;
       color: #000;
       transition: all 0.3s ease;
       min-height: 44px;
-      font-size: 1rem;
+      margin-top: 0.5rem;
+      margin-left: 1rem;
     }
-
     button:hover {
       background-color: #00c2ab;
       box-shadow: 0 0 20px #00ffe7;
     }
-
-    #results {
-      margin-top: 2rem;
-      text-align: left;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
     .glow-box {
       border: 2px solid #00ffe7;
       box-shadow: 0 0 15px 4px #00ffe7;
@@ -107,111 +77,110 @@
       border-radius: 12px;
       font-size: 1.2rem;
       font-weight: 500;
-      margin-top: 1.5rem;
-      margin-bottom: 4rem;
+      margin: 1.5rem auto 4rem auto; /* Center the box */
       background-color: #111;
       text-align: center;
+      display: inline-block; /* This makes the box only as wide as its content */
+      max-width: 90%; /* Prevent overflow on mobile */
     }
 
     .glow-box ul {
       font-size: 1rem;
-      margin-top: 0.5rem;
-      text-align: left;
-      display: inline-block;
-    }
-
-    img {
-      display: block;
-      margin: 1rem auto;
-      border: 3px solid #00ffe7;
-      border-radius: 10px;
-    }
-
-    a {
-      color: #00ffe7;
-    }
-
-    ul {
+      text-align: center;
+      margin: 0;
+      padding-left: 1.5rem; /* Standard list indentation */
       list-style-type: none;
-      padding: 0;
     }
-
-    li {
-      margin: 0.3rem 0;
+    .ul { /* This class seems redundant as glow-box ul already removes list-style-type */
+      font-size: 1rem;
+      text-align: left;
+      margin: 0;
+      padding-left: 1rem;
+      list-style-type: none;
     }
-
+    #results img {
+  display: block;
+  margin: 1rem auto;
+  border: 3px solid #00ffe7;
+  border-radius: 10px;
+  /* Add this line: */
+  max-width: 100%; /* Ensures the image never overflows its parent container */
+  /* The existing max-width: 200px below will then act as a cap for larger screens */
+}
     .streaming-logos {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
+      align-items: center;
+      flex-wrap: wrap; /* Allows logos to wrap to new lines */
+      gap: 1rem; /* Space between logos */
+      max-width: 50%;
+      margin: 0 auto;
+      padding: 1rem 0;
     }
 
     .streaming-logos img {
-      height: 40px;
-      border: none;
+      max-width: 60px; /* Base logo size */
+      height: auto;
     }
 
-    .streaming-label {
-      font-size: 0.9rem;
-      margin-top: 0.2rem;
+    /* Mobile friendly */
+    @media (max-width: 768px) {
+      .streaming-logos {
+        max-width: 80%; /* Use more width on mobile */
+        gap: 0.5rem;
+      }
+      .streaming-logos img {
+        max-width: 50px; /* Smaller logos on mobile */
+      }
+    }
+    .glow-box-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 1.5rem 0 4rem 0;
+    }
+    #plot {
+      max-width: 600px; /* Adjust this value as needed */
+      margin: 0 auto 1rem auto; /* Centers the text block */
+      line-height: 1.6; /* Improves readability */
+      text-align: left; /* Keeps text left-aligned within the block */
     }
 
-    .provider {
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      #plot {
+        max-width: 90%; /* Uses more screen width on mobile */
+        margin: 0 auto 1rem auto;
+      }
+    }
+    #selectionContainer {
+      width: fit-content;
+      max-width: 90%;
+    }
+    .provider { /* This class is defined but not used in the provided HTML */
       text-align: center;
+      width: 33%;
+    }
+    .glow-box.intro-glow-box { /* More specific selector if needed for the intro box */
+      font-size: 1rem;
+      padding: 1rem;
+    }
+    #extraInfo p {
+      margin: 0.5rem 0;
+    }
+    #scoreList {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
     }
     @media (max-width: 600px) {
-  body {
-    padding: 1rem;
-  }
-
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  h2 {
-    font-size: 1.2rem;
-  }
-
-  input[type="text"] {
-    width: 100%;
-    font-size: 1rem;
-  }
-
-  button {
-    margin-top: 0.5rem;
-    width: 100%;
-    font-size: 1rem;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .glow-box {
-    font-size: 1rem;
-    padding: 1rem;
-  }
-
-  .streaming-logos img {
-    height: 30px;
-  }
-
-  .provider {
-    width: 33%;
-  }
-  img {
-  max-width: 100%;
-  height: auto;
-}
-
-}
-
+      input[type="text"], select, button {
+        width: 100%;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
   </style>
-  <!-- Google tag (gtag.js) for GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-3780MNFP09"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -222,21 +191,20 @@
 </head>
 <body>
   <h1>Movie Score Aggregator</h1>
-  <h1>Find the Best-Rated Movies at a Glance</h1>
-  <h2>Real-time ratings from TMDb, Rotten Tomatoes, IMDb, Metacritic</h2>
+  <h2>Find the Best-Rated Movies at a Glance</h2>
+  <h3>Real-time ratings from TMDb, Rotten Tomatoes, IMDb, Metacritic</h3>
 
-  <form id="movieForm">
+  <form id="searchForm">
     <input type="text" id="movieTitle" placeholder="Enter movie title" required />
-    <button type="submit">Get Scores</button>
+    <button type="submit">Search</button>
     <button id="clearBtn" type="button">Clear</button>
   </form>
-  
 
-  <div id="results">
-    <div class="glow-box" id="introBox">
+  <div id="introBox"> 
+    <div class="glow-box"> 
       <h3>Welcome to Movie Score Aggregator</h3>
       <p>This website is designed to provide a rapid but extensive review of a film title</p>
-        <p>Enter a movie title above to reveal:</p>
+      <p>Enter a movie title above to reveal:</p>
       <ul>
         <li>Ratings from multiple film review sites</li>
         <li>A combined average score</li>
@@ -246,83 +214,179 @@
     </div>
   </div>
 
+
+  <div class="glow-box-wrapper">
+    <div id="selectionContainer" class="glow-box" style="display:none">
+        <h3>Multiple results found. Please select the correct one:</h3>
+        <select id="movieSelector"></select>
+        <button id="selectButton">Get Scores</button>
+    </div>
+  </div>
+
+
+  <div id="results" style="display:none"> 
+    <h2 id="title"></h2>
+    <img id="poster" src="" alt="Poster" />
+    <p id="plot"></p>
+    <div class="glow-box">
+      <ul id="scoreList"></ul>
+      <h3 id="averageScore"></h3>
+    </div>
+
+    <div id="extraInfo">
+      <p><strong>Genre:</strong> <span id="genre"></span></p>
+      <p><strong>Director:</strong> <span id="director"></span></p>
+      <p><strong>Actors:</strong> <span id="actors"></span></p>
+      <p><strong>Language:</strong> <span id="language"></span></p>
+      <p><strong>Box Office:</strong> <span id="boxOffice"></span></p>
+      <p><strong>IMDb Votes:</strong> <span id="imdbVotes"></span></p>
+      <p><strong>Rated:</strong> <span id="rated"></span></p>
+      <p><strong>Released:</strong> <span id="released"></span></p>
+      <p><strong>Writer:</strong> <span id="writer"></span></p>
+      <p><strong>Country:</strong> <span id="country"></span></p>
+      <p><strong>Awards:</strong> <span id="awards"></span></p>
+      <p><strong>Production:</strong> <span id="production"></span></p>
+      <p><strong>DVD Release:</strong> <span id="dvd"></span></p>
+      <p><strong>Type:</strong> <span id="type"></span></p>
+      <p><strong>Website:</strong> <span id="website"></span></p>
+    </div>
+
+    <h4 id="availableOnHeading">Available on:</h4>
+
+    <div id="streamingProviders" class="streaming-logos"></div>
+  </div>
+
+  <footer style="margin-top: 4rem; font-size: 0.8rem; color: #888;">
+    &copy; 2025 SpeedyFilmCritic — All Rights Reserved.
+  </footer>
+
   <script>
-    document.getElementById('movieForm').addEventListener('submit', async (e) => {
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      window.location.href = window.location.origin;
+    });
+
+    const form = document.getElementById('searchForm');
+    const titleInput = document.getElementById('movieTitle');
+    const selectionContainer = document.getElementById('selectionContainer');
+    const selector = document.getElementById('movieSelector');
+    const selectButton = document.getElementById('selectButton');
+    const results = document.getElementById('results');
+    const titleEl = document.getElementById('title');
+    const posterEl = document.getElementById('poster');
+    const plotEl = document.getElementById('plot');
+    const scoreList = document.getElementById('scoreList');
+    const averageEl = document.getElementById('averageScore');
+    const streamingEl = document.getElementById('streamingProviders');
+    const introBox = document.getElementById('introBox'); // This correctly references the outer div
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const title = document.getElementById('movieTitle').value;
-    
-    document.getElementById('clearBtn').addEventListener('click', function () {
-    // This reloads the site to its initial state
-    window.location.href = window.location.origin;
-  });
-
-
-      // GA4 Event Tracking
-      gtag('event', 'search', {
-        event_category: 'Movie Lookup',
-        event_label: title,
-        search_term: title
-      });
+      const title = titleInput.value.trim();
+      if (!title) return;
+      introBox.style.display = 'none'; // Hide introBox here
       const response = await fetch(`/api/movie?title=${encodeURIComponent(title)}`);
       const data = await response.json();
 
-      const resultsDiv = document.getElementById('results');
-      if (data.error) {
-        resultsDiv.innerHTML = `<div class="glow-box"><p>Error: ${data.error}</p></div>`;
-        return;
-      }
-
-      const { movieInfo, scores, average, streaming } = data;
-
-      let infoHtml = `
-        <h2>${movieInfo.title} (${movieInfo.year})</h2>
-        
-        <img src="${movieInfo.poster}" alt="Poster for ${movieInfo.title}" style="max-width:200px;" onerror="this.style.display='none';">
-
-        <p><strong>Rated:</strong> ${movieInfo.rated}</p>
-        <p><strong>Released:</strong> ${movieInfo.released}</p>
-        <p><strong>Genre:</strong> ${movieInfo.genre}</p>
-        <p><strong>Director:</strong> ${movieInfo.director}</p>
-        <p><strong>Writer:</strong> ${movieInfo.writer}</p>
-        <p><strong>Actors:</strong> ${movieInfo.actors}</p>
-        <p><strong>Language:</strong> ${movieInfo.language}</p>
-        <p><strong>Country:</strong> ${movieInfo.country}</p>
-        <p><strong>Awards:</strong> ${movieInfo.awards}</p>
-        <p><strong>Production:</strong> ${movieInfo.production}</p>
-        <p><strong>Box Office:</strong> ${movieInfo.boxOffice}</p>
-        <p><strong>DVD Release:</strong> ${movieInfo.dvd}</p>
-        <p><strong>Type:</strong> ${movieInfo.type}</p>
-        <p><strong>Plot:</strong> ${movieInfo.plot}</p>
-        <p><strong>Website:</strong> ${movieInfo.website !== "N/A" ? `<a href="${movieInfo.website}" target="_blank">${movieInfo.website}</a>` : 'N/A'}</p>
-        <p><strong>IMDb Rating:</strong> (${movieInfo.imdbVotes} votes)</p><br>
-      `;
-
-      let scoresHtml = `<div class="glow-box"><h3>Scores:</h3><ul>`;
-      for (const [source, value] of Object.entries(scores)) {
-        scoresHtml += `<li><strong>${source}:</strong> ${value}/100</li>`;
-      }
-      scoresHtml += `</ul><h3>Average Score: ${average}/100</h3></div>`;
-
-      let streamingHtml = '';
-      if (streaming.length > 0) {
-        streamingHtml = `<h3>Where to Watch</h3><div class="streaming-logos">`;
-        streaming.forEach(provider => {
-          streamingHtml += `
-            <div class="provider">
-              <img src="${provider.logo}" alt="${provider.name}" title="${provider.name}">
-              <div class="streaming-label">${provider.name}</div>
-            </div>
-          `;
+      if (data.multiple) {
+        selector.innerHTML = '';
+        data.results.forEach(movie => {
+          const option = document.createElement('option');
+          option.value = movie.id;
+          option.textContent = `${movie.title} (${movie.release_date?.split('-')[0] || 'N/A'})`;
+          selector.appendChild(option);
         });
-        streamingHtml += `</div>`;
+        selectionContainer.style.display = 'block';
+        results.style.display = 'none';
+      } else if (data.movieInfo) {
+        displayResults(data);
+      } else {
+        alert(data.error || 'Movie not found.');
+      }
+    });
+
+    selectButton.addEventListener('click', async () => {
+      const tmdbId = selector.value;
+      // const title = titleInput.value.trim(); // Removed - server doesn't need it if tmdbId is present
+      introBox.style.display = 'none'; // Hide introBox here
+      const response = await fetch(`/api/movie?tmdbId=${tmdbId}`); // Removed title from query string
+      const data = await response.json();
+      if (data.movieInfo) {
+        displayResults(data);
+      }
+    });
+
+    // Modified displayResults function
+    function displayResults(data) {
+      selectionContainer.style.display = 'none';
+      results.style.display = 'block';
+      const movie = data.movieInfo;
+
+      // Get fallback title from dropdown selection if available
+      let displayTitle = movie.title || 'Title';
+      let displayYear = movie.year || 'Year';
+
+      // If title/year are missing or generic, use the selected option text
+      if ((!movie.title || movie.title === 'Title') && selector.value) {
+        const selectedOption = selector.options[selector.selectedIndex];
+        if (selectedOption && selectedOption.textContent) {
+          // Extract title and year from dropdown text format: "Title (Year)"
+          const match = selectedOption.textContent.match(/^(.+?)\s*\((\d{4}|N\/A)\)$/);
+          if (match) {
+            displayTitle = match[1].trim();
+            displayYear = match[2] !== 'N/A' ? match[2] : displayYear;
+          }
+        }
       }
 
-      resultsDiv.innerHTML = infoHtml + scoresHtml + streamingHtml;
-    });
-  </script>
-  <footer style="margin-top: 4rem; font-size: 0.8rem; color: #888;">
-  &copy; 2025 SpeedyFilmCritic — All Rights Reserved.
-</footer>
+      titleEl.textContent = `${displayTitle} (${displayYear})`;
+      plotEl.textContent = movie.plot || '';
 
+      if (movie.poster) {
+        posterEl.src = movie.poster;
+        posterEl.style.display = 'block';
+      } else {
+        posterEl.style.display = 'none';
+      }
+
+      scoreList.innerHTML = '';
+      for (const [source, score] of Object.entries(data.scores)) {
+        const li = document.createElement('li');
+        li.textContent = `${source}: ${score ?? 'N/A'}`;
+        scoreList.appendChild(li);
+      }
+      averageEl.textContent = `Aggregate Score: ${data.average ?? 'N/A'}`;
+
+      const fields = ['genre','director','actors','language','boxOffice','imdbVotes','rated','released','writer','country','awards','production','dvd','type'];
+      fields.forEach(field => {
+        document.getElementById(field).textContent = movie[field] || 'N/A';
+      });
+
+      const websiteSpan = document.getElementById('website');
+      websiteSpan.innerHTML = (movie.website && movie.website !== 'N/A') ? `<a href="${movie.website}" target="_blank" rel="noopener">${movie.website}</a>` : 'N/A';
+
+      // --- MODIFIED SECTION FOR HIDING "Available on:" HEADING ---
+      const availableOnHeading = document.getElementById('availableOnHeading'); // Get the heading element
+      streamingEl.innerHTML = ''; // This correctly clears existing logos
+
+      if (data.streaming && data.streaming.length > 0) {
+        // If there is streaming data, show the heading
+        availableOnHeading.style.display = 'block';
+        data.streaming.forEach(provider => {
+          const img = document.createElement('img');
+          img.src = provider.logo;
+          img.alt = provider.name;
+          img.title = provider.name;
+          streamingEl.appendChild(img);
+        });
+      } else {
+        // If no streaming data, hide the heading
+        availableOnHeading.style.display = 'none';
+        // The streamingEl (div for logos) will automatically be empty and effectively hidden
+        // by its CSS if it has no content, or you can explicitly hide it if preferred:
+        streamingEl.style.display = 'none'; // Explicitly hide the container too for certainty
+      }
+      // --- END MODIFIED SECTION ---
+    }
+  </script>
 </body>
 </html>
