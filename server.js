@@ -138,7 +138,9 @@ app.get('/api/movie', async (req, res) => {
     }
   }
 });
-
+app.get('/sitemap.xml', (req, res) => {
+  res.sendFile(path.join(__dirname, 'sitemap.xml'));
+});
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
