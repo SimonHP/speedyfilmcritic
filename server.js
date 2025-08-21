@@ -144,6 +144,12 @@ app.get('/sitemap.xml', (req, res) => {
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
+app.get('/about.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'about.html'));
+});
+app.get('/faq.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'faq.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
