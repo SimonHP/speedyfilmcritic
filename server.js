@@ -12,6 +12,17 @@ const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_IMAGE_BASE_URL_W92 = 'https://image.tmdb.org/t/p/w92';
 const TMDB_IMAGE_BASE_URL_W500 = 'https://image.tmdb.org/t/p/w500';
 
+// ✅ Force redirect to canonical domain
+app.use((req, res, next) => {
+  const host = req.headers.host;
+  if (host !== 'www.fastfilmscore.com') {
+    return res.redirect(301, `https://www.fastfilmscore.com${req.originalUrl}`);
+  }
+  next();
+});
+
+// Middleware
+
 app.use(express.static('public'));
 
 const getMovieProperty = (omdbValue, tmdbValue, fallback = 'N/A') => {
